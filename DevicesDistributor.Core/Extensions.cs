@@ -6,10 +6,10 @@ namespace DevicesDistributor.Core
 {
     public static class Extensions
     {
-        public static IServiceCollection RegisterCoreServices(IServiceCollection serviceCollection)
+        public static IServiceCollection AddRegisterCoreServices(this IServiceCollection serviceCollection)
         {
 
-            serviceCollection.AddTransient<IFridgeRepository, FridgeRepository>();
+            serviceCollection.AddSingleton<IFridgeRepository, FridgeRepository>();
             serviceCollection.AddTransient<IFridgeService, FridgeService>();
             serviceCollection.AddTransient<ISerialNumberProviderClient, SerialNumberProviderClient>();
 

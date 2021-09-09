@@ -19,7 +19,7 @@ namespace DevicesDistributor.Api.Controllers
         }
 
         [HttpPost("fridge")]
-        public async Task<IActionResult> CreateFridge(CreateFridgeRequestModel createFridgeRequestModel)
+        public async Task<IActionResult> CreateFridge([FromBody]CreateFridgeRequestModel createFridgeRequestModel)
         {
             Guid id = Guid.NewGuid();
             await _fridgeService.AddAsync(id, createFridgeRequestModel.Name,
