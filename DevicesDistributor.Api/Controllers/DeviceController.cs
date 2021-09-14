@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DevicesDistributor.Api.Models;
 using DevicesDistributor.Core.Dtos;
@@ -12,11 +13,15 @@ namespace DevicesDistributor.Api.Controllers
     public class DeviceController : ControllerBase
     {
         private readonly IFridgeService _fridgeService;
+        private readonly IDeviceService _deviceService;
 
-        public DeviceController(IFridgeService fridgeService)
+        
+        public DeviceController(IFridgeService fridgeService, IDeviceService deviceService)
         {
             _fridgeService = fridgeService;
+            _deviceService = deviceService;
         }
+
 
         [HttpPost("fridge")]
         public async Task<IActionResult> CreateFridge([FromBody]CreateFridgeRequestModel createFridgeRequestModel)
@@ -39,6 +44,13 @@ namespace DevicesDistributor.Api.Controllers
             }
 
             return Ok(fridge.AsDto());
+        }
+
+        [HttpGet("allDevices")]
+        public async Task<List<Device>> GetAllDevices()
+        {
+            List<Device> devices = await _deviceService.GetAllDevicesAsync();
+            return devices;
         }
     }
 }

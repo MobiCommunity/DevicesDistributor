@@ -8,5 +8,6 @@ namespace DevicesDistributor.Core.Services.Abstract
     {
         Task<Fridge> Get(Guid id);
         Task Add(Fridge fridge);
+   
     }
 }

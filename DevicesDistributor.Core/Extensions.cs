@@ -10,6 +10,8 @@ namespace DevicesDistributor.Core
         {
 
             serviceCollection.AddSingleton<IFridgeRepository, FridgeRepository>();
+            serviceCollection.AddSingleton<IDeviceRepository, DeviceRepository>();  
+            serviceCollection.AddTransient<IDeviceService, DeviceService>();
             serviceCollection.AddTransient<IFridgeService, FridgeService>();
             serviceCollection.AddTransient<ISerialNumberProviderClient, SerialNumberProviderClient>();
 
