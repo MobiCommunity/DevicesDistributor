@@ -15,12 +15,13 @@ namespace DevicesDistributor.Api.Controllers
         private readonly IFridgeService _fridgeService;
         private readonly IDeviceService _deviceService;
         private readonly IMicrowaveService _microwaveService;
+
         
-        public DeviceController(IFridgeService fridgeService, IDeviceService deviceService, IMicrowaveService microvaweService)
+        public DeviceController(IFridgeService fridgeService, IDeviceService deviceService, IMicrowaveService microwaveService)
         {
             _fridgeService = fridgeService;
             _deviceService = deviceService;
-            _microwaveService = microvaweService;
+            _microwaveService = microwaveService;
         }
 
 

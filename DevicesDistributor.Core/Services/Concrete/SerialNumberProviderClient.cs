@@ -41,5 +41,30 @@ namespace DevicesDistributor.Core.Services.Concrete
 
             return resultContent;
         }
+
+        public async Task<string> GenerateAsync(GenerateSerialNumberRequest request, bool isMicrowave)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_address);
+
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("api/serial-number/customGenerate", new StringContent(JsonConvert.SerializeObject(
+                new GenerateSerialNumberRequestModel
+                {
+                    Id = request.Id,
+                    Name = request.Name,
+                    Version = request.Version,
+                    ProductionDate = request.ProductionDate
+                })));
+
+            string resultContent = await httpResponseMessage.Content.ReadAsStringAsync();
+
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception(
+                    $"Error in connection. Details : {resultContent}");
+            }
+
+            return resultContent;
+        }
     }
 }
