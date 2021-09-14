@@ -11,7 +11,7 @@ namespace DevicesDistributor.Core.Services.Concrete
     {
         private readonly IDeviceRepository _deviceRepository;
 
-        public DeviceService(IDeviceRepository deviceRepository)
+        public DeviceService(IDeviceRepository deviceRepository/*, FridgeRepository fridgeRepository*/)
         {
             _deviceRepository = deviceRepository;
         }
