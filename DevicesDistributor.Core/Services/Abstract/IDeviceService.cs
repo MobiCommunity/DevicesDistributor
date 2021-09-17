@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace DevicesDistributor.Core.Services.Abstract
 {
-
     public interface IDeviceService
     {
-    
-        Task<List<Device>> GetAllDevicesAsync();
+        public Task<IEnumerable<Device>> GetAllAsync();
+        public Task AddAsync(Device device);
+        public Task<Device> GetAsync(Guid id);
     }
-
-
 }

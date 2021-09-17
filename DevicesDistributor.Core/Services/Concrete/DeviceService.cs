@@ -15,9 +15,8 @@ namespace DevicesDistributor.Core.Services.Concrete
         {
             _deviceRepository = deviceRepository;
         }
-        async Task<List<Device>> IDeviceService.GetAllDevicesAsync() => await _deviceRepository.GetAllDevicesAsync();
-
-
-
+        async Task<IEnumerable<Device>> IDeviceService.GetAllAsync() => await _deviceRepository.GetAll();
+        async Task<Device> IDeviceService.GetAsync(Guid id) => await _deviceRepository.Get(id);
+        async Task IDeviceService.AddAsync(Device device) => await _deviceRepository.Add(device);
     }
 }

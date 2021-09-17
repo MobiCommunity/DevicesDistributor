@@ -15,5 +15,17 @@ namespace DevicesDistributor.Core.Dtos
                 SerialNumber = fridge.SerialNumber
             };
         }
+
+        public static DeviceDto AsDto(this Device device)
+        {
+            return new DeviceDto
+            {
+                Id = device.Id,
+                Name = device.Name,
+                Version = device.Version,
+                ProductionDate = device.ProductionDate,
+                SerialNumber = device.SerialNumber
+            };
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DevicesDistributor.Api.Models;
 using DevicesDistributor.Core.Dtos;
@@ -15,42 +16,38 @@ namespace DevicesDistributor.Api.Controllers
         private readonly IFridgeService _fridgeService;
         private readonly IDeviceService _deviceService;
 
-        
         public DeviceController(IFridgeService fridgeService, IDeviceService deviceService)
         {
             _fridgeService = fridgeService;
             _deviceService = deviceService;
         }
 
-
         [HttpPost("fridge")]
-        public async Task<IActionResult> CreateFridge([FromBody]CreateFridgeRequestModel createFridgeRequestModel)
+        public async Task<IActionResult> CreateFridge([FromBody] CreateFridgeRequestModel createFridgeRequestModel)
         {
             Guid id = Guid.NewGuid();
             await _fridgeService.AddAsync(id, createFridgeRequestModel.Name,
                 createFridgeRequestModel.Version, DateTime.UtcNow);
 
-            return Created($"api/device/fridge/{id}",null);
+            return Created($"api/device/fridge/{id}", null);
         }
-        
+
         [HttpGet("fridge/{id:Guid}")]
         public async Task<IActionResult> GetFridge(Guid id)
         {
-            Fridge fridge = await _fridgeService.GetAsync(id);
+            Fridge fridge = (Fridge)await _deviceService.GetAsync(id);
 
             if (fridge is null)
-            {
                 return NotFound();
-            }
 
             return Ok(fridge.AsDto());
         }
 
         [HttpGet("allDevices")]
-        public async Task<List<Device>> GetAllDevices()
+        public async Task<IActionResult> GetAll()
         {
-            List<Device> devices = await _deviceService.GetAllDevicesAsync();
-            return devices;
+            IEnumerable<Device> devices = await _deviceService.GetAllAsync();
+            return Ok(devices.Select(x => x.AsDto()));
         }
     }
 }

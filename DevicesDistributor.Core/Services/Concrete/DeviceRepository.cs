@@ -10,20 +10,24 @@ namespace DevicesDistributor.Core.Services.Concrete
 {
     public class DeviceRepository : IDeviceRepository
     {
-        private  readonly IDictionary<Guid, Device> _entities = new Dictionary<Guid, Device>();
+        private readonly IDictionary<Guid, Device> _entities = new Dictionary<Guid, Device>();
 
-
-        public  Task Add(Device device)
+        public Task Add(Device device)
         {
             _entities.Add(device.Id, device);
             return Task.CompletedTask;
         }
 
-        public Task<List<Device>> GetAllDevicesAsync()
+        public Task<IEnumerable<Device>> GetAll()
         {
-
-            List<Device> deviceList = _entities.Values.ToList();
+            IEnumerable<Device> deviceList = _entities.Values.ToList();
             return Task.FromResult(deviceList);
+        }
+
+        public Task<Device> Get(Guid id)
+        {
+            Device deviceResult = _entities.TryGetValue(id, out Device device) ? device : null;
+            return Task.FromResult(deviceResult);
         }
     }
 }

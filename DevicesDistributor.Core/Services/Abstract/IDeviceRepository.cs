@@ -8,7 +8,8 @@ namespace DevicesDistributor.Core.Services.Abstract
 {
     public interface IDeviceRepository
     {
-        Task<List<Device>> GetAllDevicesAsync();
+        Task<IEnumerable<Device>> GetAll();
         Task Add(Device device);
+        Task<Device> Get(Guid id);
     }
 }
