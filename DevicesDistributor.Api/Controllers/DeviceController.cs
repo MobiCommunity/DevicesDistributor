@@ -15,11 +15,13 @@ namespace DevicesDistributor.Api.Controllers
     {
         private readonly IFridgeService _fridgeService;
         private readonly IDeviceService _deviceService;
+        private readonly IMicrowaveService _microwaveService;
 
-        public DeviceController(IFridgeService fridgeService, IDeviceService deviceService)
+        public DeviceController(IFridgeService fridgeService, IDeviceService deviceService, IMicrowaveService microwaveService)
         {
             _fridgeService = fridgeService;
             _deviceService = deviceService;
+            _microwaveService = microwaveService;
         }
 
         [HttpPost("fridge")]
@@ -30,6 +32,16 @@ namespace DevicesDistributor.Api.Controllers
                 createFridgeRequestModel.Version, DateTime.UtcNow);
 
             return Created($"api/device/fridge/{id}", null);
+        }
+
+        [HttpPost("microwave")]
+        public async Task<IActionResult> CreateMicrowave([FromBody] CreateMicrowaveRequestModel createMicrowaveRequestModel)
+        {
+            Guid id = Guid.NewGuid();
+            await _microwaveService.AddAsync(id, createMicrowaveRequestModel.Name,
+                createMicrowaveRequestModel.Version, DateTime.UtcNow);
+
+            return Created($"api/device/microwave/{id}", null);
         }
 
         [HttpGet("fridge/{id:Guid}")]

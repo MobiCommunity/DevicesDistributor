@@ -25,7 +25,6 @@ namespace DevicesDistributor.Core.Services.Concrete
 
             Fridge fridge = Fridge.Create(id, name, version, productionDate, generated);
             await _deviceRepository.Add(fridge);
-
         }
     }
 }
