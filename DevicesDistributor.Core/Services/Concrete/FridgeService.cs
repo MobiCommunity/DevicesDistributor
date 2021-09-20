@@ -20,7 +20,7 @@ namespace DevicesDistributor.Core.Services.Concrete
 
         public async Task AddAsync(Guid id, string name, string version, DateTime productionDate)
         {
-            string generated = await _serialNumberProviderClient.GenerateAsync(
+            string generated = await _serialNumberProviderClient.GenerateAsyncSHA256(
                 new GenerateSerialNumberRequest(id, name, version, productionDate));
 
             Fridge fridge = Fridge.Create(id, name, version, productionDate, generated);

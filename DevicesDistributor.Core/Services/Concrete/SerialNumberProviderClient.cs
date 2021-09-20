@@ -17,12 +17,12 @@ namespace DevicesDistributor.Core.Services.Concrete
             _address = configuration.GetSection("SerialNumberProviderClientAddress").Value;
         }
 
-        public async Task<string> GenerateAsync(GenerateSerialNumberRequest request)
+        public async Task<string> GenerateAsyncSHA256(GenerateSerialNumberRequest request)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(_address);
 
-            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("api/serial-number", new StringContent(JsonConvert.SerializeObject(
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("api/serial-number/sha256", new StringContent(JsonConvert.SerializeObject(
                 new GenerateSerialNumberRequestModel
                 {
                     Id = request.Id,
@@ -42,12 +42,12 @@ namespace DevicesDistributor.Core.Services.Concrete
             return resultContent;
         }
 
-        public async Task<string> GenerateAsync(GenerateSerialNumberRequest request, bool isMicrowave)
+        public async Task<string> GenerateAsyncMD5(GenerateSerialNumberRequest request)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(_address);
 
-            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("api/serial-number/customGenerate", new StringContent(JsonConvert.SerializeObject(
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("api/serial-number/MD5", new StringContent(JsonConvert.SerializeObject(
                 new GenerateSerialNumberRequestModel
                 {
                     Id = request.Id,

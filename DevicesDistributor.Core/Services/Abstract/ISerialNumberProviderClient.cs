@@ -4,7 +4,7 @@ namespace DevicesDistributor.Core.Services.Abstract
 {
     public interface ISerialNumberProviderClient
     {
-        Task<string> GenerateAsync(GenerateSerialNumberRequest request);
-        Task<string> GenerateAsync(GenerateSerialNumberRequest request,bool isMicrowave);
+        Task<string> GenerateAsyncSHA256(GenerateSerialNumberRequest request);
+        Task<string> GenerateAsyncMD5(GenerateSerialNumberRequest request);
     }
 }

@@ -19,7 +19,7 @@ namespace DevicesDistributor.Core.Services.Concrete
         }
         public async Task AddAsync(Guid id, string name, string version, DateTime productionDate)
         {
-            string generated = await _serialNumberProviderClient.GenerateAsync(new GenerateSerialNumberRequest(id, name, version, productionDate),true);
+            string generated = await _serialNumberProviderClient.GenerateAsyncMD5(new GenerateSerialNumberRequest(id, name, version, productionDate));
             Microwave microwave = Microwave.Create(id, name, version, productionDate, generated);
             await _deviceRepository.Add(microwave);
         }
